@@ -1,0 +1,16 @@
+.comment{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.comment_content {
+    background-color: #e6ebf5;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment_content p {
+    margin: 10px;
+}

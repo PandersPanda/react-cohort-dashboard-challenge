@@ -1,0 +1,35 @@
+.post {
+    background-color: white;
+    padding: 15px 30px 15px 30px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+  }
+
+.post__header {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+.post__header img{
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.post__commentSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post_content {
+    border-bottom: 1px solid #ddd;
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+}
