@@ -1,10 +1,10 @@
 //import './PostFeed.css';
 import PostInput from "./PostInput";
 import PostList from "./PostList";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+export const UserPostsContext = createContext();
 
 function PostFeed() {
-   
    const [userPosts, setUserPosts] =  useState([])
 
    useEffect(() => {
@@ -22,8 +22,11 @@ function PostFeed() {
 
   return (
     <div className="postFeed">
-      <PostInput updateUserPosts={updateUserPosts}/>
-      <PostList userPosts={userPosts}/>
+      <UserPostsContext.Provider
+      value={{userPosts: userPosts, updateUserPosts: updateUserPosts}}>
+        <PostInput/>
+        <PostList />
+      </UserPostsContext.Provider>
     </div>
   );
 }

@@ -1,12 +1,17 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import '../styling/postInput.css'
 import ColouredCircle from "./ColouredCircle"
+import { UserPostsContext } from "./PostFeed"
+import { UserContext } from "../App"
 /* eslint react/prop-types: 0 */
 
-function PostInput( {updateUserPosts} ){
-    //If this one does not work, a contact id with the id 16 has to be made
+function PostInput(){
+    const { updateUserPosts } = useContext(UserPostsContext)
+    const { userLoggedIn } = useContext(UserContext)
+
+    //If this one does not work, a contact id with the id 16 has to be made in the swagger (or use any other contact)
     const initialPost = {
-        title: "Test Post",
+        title: "",
         content: "",
         contactId: 16 //Don't have login function so I use one I put in of myself
     }
@@ -36,7 +41,7 @@ function PostInput( {updateUserPosts} ){
     return(
         <div className="postInput">
             <div className="postInput__container">
-                <ColouredCircle firstName={"Anders"} lastName={"Ottersland"} color={"#e84778"}/>
+            <ColouredCircle firstName={userLoggedIn.firstName} lastName={userLoggedIn.lastName} color={userLoggedIn.favouriteColour}/>
                 <input
                 placeholder="What's on your mind?"
                 rows="3"

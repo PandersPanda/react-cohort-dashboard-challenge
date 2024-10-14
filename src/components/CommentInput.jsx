@@ -1,15 +1,18 @@
+import { UserContext } from "../App";
 import "../styling/CommentInput.css"
 import ColouredCircle from "./ColouredCircle"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { CommentContext } from "./PostItem";
 /* eslint react/prop-types: 0 */
-function CommentInput({ post, updateComments }){
-
+function CommentInput({ post }){
+    const { userLoggedIn } = useContext(UserContext)
+    const { updateComments } = useContext(CommentContext)
     const url = "https://boolean-uk-api-server.fly.dev/PandersPanda/post/" + post.id + "/comment";
 
     const initalComment = {
         postId: post.id,
         content: "",
-        contactId: 16
+        contactId: userLoggedIn.id
     }
 
     const [comment, setComment] = useState(initalComment)
@@ -40,7 +43,7 @@ function CommentInput({ post, updateComments }){
 
     return (
         <div className="comment_input">
-            <ColouredCircle firstName={"Anders"} lastName={"Ottersland"} color={"#e84778"}/>
+            <ColouredCircle firstName={userLoggedIn.firstName} lastName={userLoggedIn.lastName} color={userLoggedIn.favouriteColour}/>
             <input type="text" placeholder="Add a comment..." onChange={onChange}/>
             <button onClick={PostComment} className="comment_button">Comment</button>
         </div>

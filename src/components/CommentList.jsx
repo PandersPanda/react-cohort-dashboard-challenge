@@ -1,10 +1,28 @@
+import { useContext, useState } from "react"
 import CommentItem from "./CommentItem"
+import { CommentContext } from "./PostItem"
+import "../styling/CommentList.css"
 
-/* eslint react/prop-types: 0 */
-function CommentList( {comments} ){
+function CommentList(){
+    const { comments } = useContext(CommentContext)
+    const [showMore, setShowMore] = useState(false)
+
+    if (showMore){
+        return(
+            <div className="comments">
+                {comments.map((comment, i) => 
+                    <CommentItem comment={comment} key={i}/>
+                )}
+            </div>
+        )
+    }
+
     return(
         <div className="comments">
-            {comments.map((comment, i) => 
+            {comments.length > 3 &&
+                <p className="previous_comments" onClick={() => {setShowMore(true)}}>See previous comments</p>
+            }
+            {comments.slice(comments.length - 3, comments.length).map((comment, i) => 
                 <CommentItem comment={comment} key={i}/>
             )}
         </div>

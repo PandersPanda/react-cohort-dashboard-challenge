@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import "../styling/PostItem.css"
 import ColouredCircle from "./ColouredCircle";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
 import { Link } from "react-router-dom";
+export const CommentContext = createContext();
 
 /* eslint react/prop-types: 0 */
 function PostItem({post}){
@@ -21,7 +22,7 @@ function PostItem({post}){
 
     useEffect(() => {
             updateComments();
-        }, [post.id, comments])
+        }, [comments])
 
     const updateComments = () => {
         const fetchdata = async () => {
@@ -30,7 +31,6 @@ function PostItem({post}){
             setComments(jsonData)
          };
          fetchdata();
-
     }
 
     const postUrl = "/view/" + post.id
@@ -50,8 +50,11 @@ function PostItem({post}){
                 <p>{post.content}</p>
             </div>
             <div className="post__commentSection">
-                <CommentList comments={comments}/>
-                <CommentInput post={post} updateComments={updateComments}/>
+                <CommentContext.Provider
+                    value={{comments: comments, updateComments: updateComments}}>
+                    <CommentList />
+                    <CommentInput post={post} />
+                </CommentContext.Provider>
             </div>
         </div>
 )
