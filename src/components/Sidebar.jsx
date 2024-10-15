@@ -12,10 +12,12 @@ function Sidebar() {
         <span>Home</span>
       </div>
       </Link>
+      <Link to="/profile">
       <div className="sidebar_option">
         <img src={profileIcon}/>
         <span>Profile</span>
       </div>
+      </Link>
     </div>
   );
 }

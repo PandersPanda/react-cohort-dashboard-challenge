@@ -38,3 +38,8 @@ body {
   padding: 20px;
   overflow-y: scroll;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -10,9 +10,10 @@ function CommentList(){
     if (showMore){
         return(
             <div className="comments">
-                {comments.map((comment, i) => 
-                    <CommentItem comment={comment} key={i}/>
-                )}
+                <p className="previous_comments" onClick={() => {setShowMore(false)}}>Hide previous comments</p>
+                    {comments.map((comment, i) => 
+                        <CommentItem comment={comment} key={i}/>
+                    )}
             </div>
         )
     }

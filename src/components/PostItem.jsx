@@ -11,13 +11,32 @@ function PostItem({post}){
     const [contact, setContact] = useState(null)
     const [comments, setComments] = useState([])
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            const response = await fetch("https://boolean-uk-api-server.fly.dev/PandersPanda/contact/" + post.contactId)
-            const jsonData = await response.json();
-            setContact(jsonData)
-         };
-         fetchdata();
+    const baseContact =   {
+        firstName: "Rick",
+        lastName: "Sanchez",
+        street: "Morty Lane",
+        city: "Jerryville",
+        gender: "Male",
+        email: "rick@sanchez.com",
+        jobTitle: "Scientist",
+        latitude: 42,
+        longitude: 629,
+        favouriteColour: "#0d7f26",
+        profileImage: "https://www.gravatar.com/avatar/sdfa@fasdf.com?s=120&d=identicon"
+      }
+
+    useEffect(() => {     
+            const fetchdata = async () => {
+                try{
+                const response = await fetch("https://boolean-uk-api-server.fly.dev/PandersPanda/contact/" + post.contactId)
+                const jsonData = await response.json();
+                setContact(jsonData)
+                } catch(e){
+                    console.log(e)
+                    setContact(baseContact)
+                }
+            };
+        fetchdata();
     }, [post.contactId])
 
     useEffect(() => {
@@ -53,7 +72,7 @@ function PostItem({post}){
                 <CommentContext.Provider
                     value={{comments: comments, updateComments: updateComments}}>
                     <CommentList />
-                    <CommentInput post={post} />
+                    <CommentInput post={post}/>
                 </CommentContext.Provider>
             </div>
         </div>

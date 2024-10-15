@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar'
 import PostFeed from './components/PostFeed'
 import { Routes, Route } from "react-router-dom";
 import PostView from './components/PostView'
+import ProfileScreen from './components/ProfileScreen';
 import { createContext, useState, useEffect } from 'react';
 export const UserContext = createContext();
 
@@ -36,13 +37,14 @@ function App() {
   return (
     <div className="app">
       <UserContext.Provider
-      value={{userLoggedIn: userLoggedIn}}>
+      value={{userLoggedIn: userLoggedIn, setUser: setUser}}>
         <Header />
         <div className="cohort_body">
           <Sidebar />
           <Routes>
             <Route path="/" element={<PostFeed />}/>
             <Route path="/view/:id" element={<PostView/>}/>
+            <Route path="/profile" element={<ProfileScreen/>}/>
           </Routes>
           </div>
       </UserContext.Provider>

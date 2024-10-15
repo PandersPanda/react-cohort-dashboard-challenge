@@ -4,13 +4,14 @@ import ColouredCircle from "./ColouredCircle"
 import { useContext, useState } from "react"
 import { CommentContext } from "./PostItem";
 /* eslint react/prop-types: 0 */
-function CommentInput({ post }){
+function CommentInput( {post} ){
     const { userLoggedIn } = useContext(UserContext)
     const { updateComments } = useContext(CommentContext)
+
     const url = "https://boolean-uk-api-server.fly.dev/PandersPanda/post/" + post.id + "/comment";
 
     const initalComment = {
-        postId: post.id,
+        postId: 0,
         content: "",
         contactId: userLoggedIn.id
     }
@@ -18,10 +19,11 @@ function CommentInput({ post }){
     const [comment, setComment] = useState(initalComment)
 
     const onChange = (event) => {
-        setComment({...comment, content: event.target.value})
+        setComment({...comment, content: event.target.value, postId: post.id})
     }
 
     const PostComment = () => {
+        setComment[{...comment, postId: post.id}]
         console.log(url)
         console.log(comment)
         try{
@@ -36,8 +38,7 @@ function CommentInput({ post }){
         }
         catch(e){
             console.error(e)    
-        }
-
+        }        
     }
 
 

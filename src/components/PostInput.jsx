@@ -3,6 +3,7 @@ import '../styling/postInput.css'
 import ColouredCircle from "./ColouredCircle"
 import { UserPostsContext } from "./PostFeed"
 import { UserContext } from "../App"
+import { Link } from "react-router-dom"
 /* eslint react/prop-types: 0 */
 
 function PostInput(){
@@ -13,7 +14,7 @@ function PostInput(){
     const initialPost = {
         title: "",
         content: "",
-        contactId: 16 //Don't have login function so I use one I put in of myself
+        contactId: userLoggedIn.id //Don't have login function so I use one I put in of myself
     }
 
     const [postInput, setInput] = useState(initialPost)
@@ -24,24 +25,26 @@ function PostInput(){
 
     const handlePost = () => {
         try{
+            console.log(postInput)
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(postInput)
             };
             fetch("https://boolean-uk-api-server.fly.dev/PandersPanda/post", requestOptions)
-                .then(response => response.json())
-                .then(data => updateUserPosts(data))
+                .then(response => console.log(response.json()))
+                .then(updateUserPosts())
         }
         catch(e){
             console.error(e)    
         }
+        
      }
 
     return(
         <div className="postInput">
             <div className="postInput__container">
-            <ColouredCircle firstName={userLoggedIn.firstName} lastName={userLoggedIn.lastName} color={userLoggedIn.favouriteColour}/>
+            <Link to="/profile"><ColouredCircle firstName={userLoggedIn.firstName} lastName={userLoggedIn.lastName} color={userLoggedIn.favouriteColour}/></Link>
                 <input
                 placeholder="What's on your mind?"
                 rows="3"
