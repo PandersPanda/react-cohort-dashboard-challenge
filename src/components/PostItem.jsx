@@ -1,15 +1,17 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import "../styling/PostItem.css"
 import ColouredCircle from "./ColouredCircle";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 export const CommentContext = createContext();
 
 /* eslint react/prop-types: 0 */
 function PostItem({post}){
     const [contact, setContact] = useState(null)
     const [comments, setComments] = useState([])
+    const { userLoggedIn } = useContext(UserContext)
 
     const baseContact =   {
         firstName: "Rick",
@@ -52,6 +54,14 @@ function PostItem({post}){
          fetchdata();
     }
 
+    const deletePost = async () => {
+        const url = "https://boolean-uk-api-server.fly.dev/PandersPanda/post/" + post.id
+        console.log(url)
+        await fetch(url, {
+            method: "DELETE",
+        })
+    }
+
     const postUrl = "/view/" + post.id
 
     if (!contact){
@@ -63,6 +73,7 @@ function PostItem({post}){
             <div className="post__header">
                 <ColouredCircle firstName={contact.firstName} lastName={contact.lastName} color={contact.favouriteColour}/>
                 <Link to={postUrl}><p>{contact.firstName} {contact.lastName}</p></Link>
+                {(userLoggedIn.id == post.contactId) && <div className="post_delete" onClick={deletePost}>Delete</div>}
             </div>
             <div className="post_content">
                 <span>{post.title}</span>
