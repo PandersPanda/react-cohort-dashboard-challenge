@@ -16,6 +16,14 @@ function CommentItem( {comment} ){
          fetchdata();
     }, [comment.contactId])
 
+    const deleteComment = async () => {
+        const url = "https://boolean-uk-api-server.fly.dev/PandersPanda/post/" + comment.postId + "/comment/" + comment.id
+        console.log(url)
+        await fetch(url, {
+            method: "DELETE",
+        })
+    }
+
     if(!contact) return <></>
 
     return(
@@ -25,7 +33,7 @@ function CommentItem( {comment} ){
                 <p style={{fontWeight: "bold"}}>{contact.firstName} {contact.lastName}</p>
                 <p>{comment.content}</p>
             </div>
-            {(comment.contactId == userLoggedIn.id) && <div className="comment_delete">Delete</div>}
+            {(comment.contactId == userLoggedIn.id) && <div className="comment_delete" onClick={deleteComment}>Delete</div>}
         </div>
     )
 }

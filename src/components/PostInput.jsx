@@ -38,7 +38,8 @@ function PostInput(){
         catch(e){
             console.error(e)    
         }
-        
+
+        document.getElementById('post_input').value = ''
      }
 
     return(
@@ -46,12 +47,13 @@ function PostInput(){
             <div className="postInput__container">
             <Link to="/profile"><ColouredCircle firstName={userLoggedIn.firstName} lastName={userLoggedIn.lastName} color={userLoggedIn.favouriteColour}/></Link>
                 <input
-                placeholder="What's on your mind?"
-                rows="3"
-                onChange={onChange}
+                    id = "post_input"
+                    placeholder="What's on your mind?"
+                    rows="3"
+                    onChange={onChange}
                 />
                 <button className="postInput__button" onClick={handlePost}>
-                Post
+                    Post
                 </button>
             </div>
         </div>
